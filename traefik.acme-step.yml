@@ -29,7 +29,7 @@ entryPoints:
             sans:
               - "*.=DCAPE_DOMAIN="
 
-# Defailt cert sourse
+# Default cert sourse
 tls:
   stores:
     default:
