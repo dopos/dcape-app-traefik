@@ -28,6 +28,18 @@ entryPoints:
             sans:
               - "*.=DCAPE_DOMAIN="
 
+# Default cert sourse
+# Have a sense in DNS-01 challenge
+tls:
+  stores:
+    default:
+      defaultGeneratedCert:
+        resolver: letsEncrypt
+        domain:
+          - main: "=DCAPE_DOMAIN="
+            sans:
+              - "*.=DCAPE_DOMAIN="
+
 certificatesResolvers:
   letsEncrypt:
     acme:
