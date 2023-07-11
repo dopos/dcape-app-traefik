@@ -1,7 +1,7 @@
 # Traefik init Makefile
 # This file included by ../../Makefile
 SHELL               = /bin/bash
-CFG              ?= .env
+CFG                ?= .env
 
 # Docker image version tested for actual dcape release
 TRAEFIK_VER0       ?= 2.10.3
@@ -35,7 +35,10 @@ TRAEFIK_RESOLVER   ?= letsEncrypt
 # StepCA URL, example: https://ca.dev.lan/acme/acme/directory
 TRAEFIK_CA_SERVER  ?=
 
-APP_ROOT         ?= $(PWD)
+APP_ROOT           ?= $(PWD)
+#- dcape root directory
+DCAPE_ROOT         ?= $(DCAPE_ROOT)
+# ------------------------------------------------------------------------------
 
 -include $(CFG)
 export
