@@ -44,7 +44,6 @@ DCAPE_ROOT         ?= $(DCAPE_ROOT)
 export
 
 ifdef DCAPE_STACK
-include $(DCAPE_ROOT)/$(CFG)
 include $(DCAPE_ROOT)/Makefile.dcape
 else
 include $(DCAPE_ROOT)/Makefile.app
@@ -78,14 +77,14 @@ export CONFIG_TRAEFIK
 # ------------------------------------------------------------------------------
 
 init: $(DCAPE_VAR)/traefik/custom $(DCAPE_VAR)/traefik/traefik.env
-	@echo "*** $@ *** = $(TRAEFIK_CONFIG_TAG)"
 	@if [[ "$$TRAEFIK_VER0" != "$$TRAEFIK_VER" ]] ; then \
 	  echo "Warning: TRAEFIK_VER in dcape ($$TRAEFIK_VER0) differs from yours ($$TRAEFIK_VER)" ; \
 	fi
+	@echo "  Traefik tag: $(TRAEFIK_CONFIG_TAG)"
 	@echo "  Dashboard URL: $(DCAPE_SCHEME)://$(DCAPE_HOST)/dashboard/"
 	@echo "  HTTP port: $(TRAEFIK_LISTEN)"
 
-setup: $(DCAPE_VAR)/traefik/traefik.yml $(DCAPE_VAR)/traefik/acme.json
+.setup-before-up: $(DCAPE_VAR)/traefik/traefik.yml $(DCAPE_VAR)/traefik/acme.json
 
 $(DCAPE_VAR)/traefik/custom:
 	@mkdir -p $@
