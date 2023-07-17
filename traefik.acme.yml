@@ -22,7 +22,7 @@ entryPoints:
       insecure: true
     http:
       tls:
-        certResolver: letsEncrypt
+        certResolver: default
         domains:
           - main: "=DCAPE_DOMAIN="
             sans:
@@ -34,22 +34,29 @@ tls:
   stores:
     default:
       defaultGeneratedCert:
-        resolver: letsEncrypt
+        resolver: default
         domain:
           - main: "=DCAPE_DOMAIN="
             sans:
               - "*.=DCAPE_DOMAIN="
 
 certificatesResolvers:
-  letsEncrypt:
+  default:
     acme:
       email: =TRAEFIK_EMAIL=
       storage: /etc/traefik/acme.json
-      # caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      # STAGE: caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+# STEP:     caServer: =TRAEFIK_CA_SERVER=
+# STEP:     certificatesDuration: 2160 # 90 days
+      tlsChallenge: true
       dnsChallenge:
         provider: pdns
       httpChallenge:
         entryPoint: web
+
+# if you need another CA, just copy upper block with another name
+#  extra:
+#    acme:
 
 providers:
   docker:

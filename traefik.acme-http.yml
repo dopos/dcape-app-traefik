@@ -22,14 +22,26 @@ entryPoints:
       insecure: true
     http:
       tls:
-        certResolver: letsEncrypt
+        certResolver: default
+
+# Default cert sourse
+# Have a sense in DNS-01 challenge
+tls:
+  stores:
+    default:
+      defaultGeneratedCert:
+        resolver: default
+        domain: "=DCAPE_DOMAIN="
 
 certificatesResolvers:
-  letsEncrypt:
+  default:
     acme:
       email: =TRAEFIK_EMAIL=
       storage: /etc/traefik/acme.json
-      # caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      # STAGE: caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+# STEP:     caServer: =TRAEFIK_CA_SERVER=
+# STEP:     certificatesDuration: 2160 # 90 days
+      tlsChallenge: true
       httpChallenge:
         entryPoint: web
 
@@ -37,7 +49,7 @@ providers:
   docker:
     exposedByDefault: false
      # TODO: cli version does not work
-    constraints: Label(`dcape.traefik.tag`,`=DCAPE_TAG=`)
+    constraints: "Label(`dcape.traefik.tag`,`=DCAPE_TAG=`)"
 
   file:
     directory: /etc/traefik/custom
