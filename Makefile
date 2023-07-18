@@ -67,7 +67,7 @@ CONFIG_TRAEFIK += $(CONFIG_TRAEFIK_INTERNAL)
 ifeq ($(DNS),no)
   PDNS_API_KEY = ***-see_powerdns_config-***
 endif
-ifdef AUTH_TOKEN
+ifeq ($(AUTH_TOKEN),)
   TRAEFIK_ALIAS ?= $(GITEA_HOST)
 else
   TRAEFIK_ALIAS ?= $(DCAPE_HOST)
