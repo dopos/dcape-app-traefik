@@ -1,5 +1,7 @@
-# Traefik init Makefile
-# This file included by ../../Makefile
+## Traefik Makefile.
+## Used with dcape at ../../
+#:
+
 SHELL               = /bin/bash
 CFG                ?= .env
 
@@ -76,6 +78,7 @@ export CONFIG_TRAEFIK
 
 # ------------------------------------------------------------------------------
 
+# check app version
 init: $(DCAPE_VAR)/traefik/custom $(DCAPE_VAR)/traefik/traefik.env
 	@if [[ "$$TRAEFIK_VER0" != "$$TRAEFIK_VER" ]] ; then \
 	  echo "Warning: TRAEFIK_VER in dcape ($$TRAEFIK_VER0) differs from yours ($$TRAEFIK_VER)" ; \
@@ -84,8 +87,10 @@ init: $(DCAPE_VAR)/traefik/custom $(DCAPE_VAR)/traefik/traefik.env
 	@echo "  Dashboard URL: $(DCAPE_SCHEME)://$(DCAPE_HOST)/dashboard/"
 	@echo "  HTTP port: $(TRAEFIK_LISTEN)"
 
+# setup app
 .setup-before-up: $(DCAPE_VAR)/traefik/traefik.yml $(DCAPE_VAR)/traefik/acme.json
 
+# create config dir
 $(DCAPE_VAR)/traefik/custom:
 	@mkdir -p $@
 
