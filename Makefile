@@ -6,7 +6,7 @@ SHELL               = /bin/bash
 CFG                ?= .env
 
 # Docker image version tested for actual dcape release
-TRAEFIK_VER0       ?= 2.10.3
+TRAEFIK_VER0       ?= 2.10.4
 
 #- ******************************************************************************
 #- Traefik: general config
