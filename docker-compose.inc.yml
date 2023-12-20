@@ -26,6 +26,8 @@
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${DCAPE_VAR}/traefik:/etc/traefik
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
       - /etc/ssl/certs:/etc/ssl/certs:ro
     networks:
       intra:
