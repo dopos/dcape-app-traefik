@@ -33,7 +33,7 @@ TRAEFIK_ALIAS      ?=
 
 # Used in traefik.acme-step.yml only
 # TODO: add TRAEFIK_CONFIG_TAG(s)
-TRAEFIK_RESOLVER   ?= letsEncrypt
+TRAEFIK_RESOLVER   ?= default
 # StepCA URL, example: https://ca.dev.test/acme/acme/directory
 TRAEFIK_CA_SERVER  ?=
 
