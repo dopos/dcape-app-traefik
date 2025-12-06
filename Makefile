@@ -6,7 +6,7 @@ SHELL               = /bin/bash
 CFG                ?= .env
 
 # Docker image version tested for actual dcape release
-TRAEFIK_VER0       ?= 2.11.3
+TRAEFIK_VER0       ?= 2.11.31
 
 #- ******************************************************************************
 #- Traefik: general config
@@ -34,7 +34,8 @@ TRAEFIK_ALIAS      ?=
 # Used in traefik.acme-step.yml only
 # TODO: add TRAEFIK_CONFIG_TAG(s)
 TRAEFIK_RESOLVER   ?= default
-# StepCA URL, example: https://ca.dev.test/acme/acme/directory
+
+#- StepCA URL, example: https://ca.dev.test/acme/acme/directory
 TRAEFIK_CA_SERVER  ?=
 
 APP_ROOT           ?= $(PWD)
@@ -96,7 +97,7 @@ $(DCAPE_VAR)/traefik/custom:
 
 $(DCAPE_VAR)/traefik/traefik.yml: $(APP_ROOT)/traefik.$(TRAEFIK_CONFIG_TAG).yml
 	@sed -e "s/=DCAPE_TAG=/$$DCAPE_TAG/g" -e "s/=DCAPE_DOMAIN=/$$DCAPE_DOMAIN/g" \
-	  -e "s/=TRAEFIK_RESOLVER=/$$TRAEFIK_RESOLVER/g" -e "s/=TRAEFIK_CA_SERVER=/$$TRAEFIK_CA_SERVER/g" \
+	  -e "s/=TRAEFIK_RESOLVER=/$$TRAEFIK_RESOLVER/g" -e "s|=TRAEFIK_CA_SERVER=|$$TRAEFIK_CA_SERVER|g" \
 	  -e "s/=TRAEFIK_EMAIL=/$$TRAEFIK_ACME_EMAIL/g" $<  > $@
 
 $(DCAPE_VAR)/traefik/acme.json:
